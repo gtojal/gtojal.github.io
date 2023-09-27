@@ -1,41 +1,66 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Order Information</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-</head>
-<body>
-    <h1>Order Information</h1>
-    <table id="productTable" border="1">
-        <tr>
-            <th>Product Name</th>
-            <th>Product Code</th>
-            <th>Submition Date</th>
-            <th>Description</th>
-        </tr>
-    </table>
+    <head>
+        <title>Order Information</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <style>
+            body {
+                background-color: black;
+            }
+            table {
+                background-color: lightgray;
+                margin: 0 auto;
+            }
+            #productTable {
+                border: 1px solid black;
+            }
+            #productTable th {
+                background-color: greenyellow;
+                color: black;
+            }
+            #productTable td {
+                border: 1px solid black;
+            }
+            #backButton {
+            margin: 0 auto;
+            display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Order Information</h1>
+        <table id="productTable" border="1">
+            <tr>
+                <th>Product Name</th>
+                <th>Product Code</th>
+                <th>Submition Date</th>
+                <th>Description</th>
+            </tr>
+        </table>
+        <br>
+        <button id="backButton" onclick="location.href = 'file:///C:/Users/Tojal/Desktop/Metatron/ETRO/jotform/etro_page1.html'">Back</button>
 
-    <script>
-        $(document).ready(function() {
-            $.ajax({
-                url: "https://api.jotform.com/form/232574272389061/submissions?apiKey=24112042736b2b2baba4da5c5761fedd",
-                type: "GET",
-                dataType: "json",
-                success: function(data) {
-                    $.each(data.content, function(key, value) {
-                        var productName = value.answers[5].answer;
-                        var productCode = value.answers[7].answer;
-                        var date = value.created_at;
-                        var description = value.answers[6].answer;
-                        $("#productTable").append("<tr><td>" + productName + "</td><td>" + productCode + "</td><td>" + date + "</td><td>" + description + "</td></tr>");
-                        return false;
-                    });
-                },
-                error: function(error) {
-                    console.log("Error:", error);
-                }
+        <script>
+            $(document).ready(function() {
+                $.ajax({
+                    url: "https://api.jotform.com/form/232574272389061/submissions?apiKey=24112042736b2b2baba4da5c5761fedd",
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
+                        $.each(data.content, function(key, value) {
+                            var productName = value.answers[5].answer;
+                            var productCode = value.answers[7].answer;
+                            var date = value.created_at;
+                            var description = value.answers[6].answer;
+                            $("#productTable").append("<tr><td>" + productName + "</td><td>" + productCode + "</td><td>" + date + "</td><td>" + description + "</td></tr>");
+                            return false;
+                        });
+                    },
+                    error: function(error) {
+                        console.log("Error:", error);
+                    }
+                });
             });
-        });
-    </script>
-</body>
+        </script>
+    </body>
 </html>
